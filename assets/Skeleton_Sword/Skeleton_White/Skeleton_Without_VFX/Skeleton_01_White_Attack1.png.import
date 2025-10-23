@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvrni8xi3p53b"
-path="res://.godot/imported/Swordsman_lvl3_Idle_with_shadow.png-075758bfbddc48c4f5ae9041544b68a9.ctex"
+uid="uid://btp0cj4f1p55a"
+path="res://.godot/imported/Skeleton_01_White_Attack1.png-68877bc9e090bb2078983ae5d028a6aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/swordsman/Swordsman_lvl3_Idle_with_shadow.png"
-dest_files=["res://.godot/imported/Swordsman_lvl3_Idle_with_shadow.png-075758bfbddc48c4f5ae9041544b68a9.ctex"]
+source_file="res://assets/Skeleton_Sword/Skeleton_White/Skeleton_Without_VFX/Skeleton_01_White_Attack1.png"
+dest_files=["res://.godot/imported/Skeleton_01_White_Attack1.png-68877bc9e090bb2078983ae5d028a6aa.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://b8prrkn4mmyya"]
+[gd_scene load_steps=17 format=4 uid="uid://b8prrkn4mmyya"]
 
 [ext_resource type="PackedScene" uid="uid://sfi21r31tqq5" path="res://world/prefabs/moving_platform.tscn" id="1_legw5"]
 [ext_resource type="PackedScene" uid="uid://b0sejhkjri4dd" path="res://actors/player.tscn" id="1_vons5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bor2eiganf7ic" path="res://assets/Envs/Seasonal Tilesets/4 - Winter World/Terrain (16 x 16).png" id="5_re8x6"]
 [ext_resource type="PackedScene" uid="uid://c8gbpoxq7q3pq" path="res://world/parallax/autumn_parallax.tscn" id="7_mla2a"]
 [ext_resource type="Texture2D" uid="uid://b4f71yq7pn7u" path="res://assets/Envs/Seasonal Tilesets/2 - Autumn Forest/Autumn_entities (16 x 16).png" id="7_vons5"]
+[ext_resource type="PackedScene" uid="uid://c4jtsl60ksbp6" path="res://actors/skeleton.tscn" id="8_687qm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dwbse"]
 texture = ExtResource("2_legw5")
@@ -261,12 +262,15 @@ z_index = -1
 texture_filter = 1
 position = Vector2(-5, -29)
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AAAmAAoAAAAFAAEAAAAGAAUAAAABAAEAAAAJAAUAAAAFAAEAAAAQAAUAAAAFAAEAAAALAAYAAAABAAUAAAAEAAYAAAADAAUAAAAFAAYAAAADAAUAAAAHAAYAAAADAAUAAAASAAYAAAADAAUAAAANAAYAAAADAAUAAAAOAAYAAAADAAUAAAA=")
+tile_map_data = PackedByteArray("AAAGAAUAAAABAAEAAAAJAAUAAAAFAAEAAAAQAAUAAAAFAAEAAAALAAYAAAABAAUAAAAEAAYAAAADAAUAAAAFAAYAAAADAAUAAAAHAAYAAAADAAUAAAASAAYAAAADAAUAAAANAAYAAAADAAUAAAAOAAYAAAADAAUAAAA=")
 tile_set = SubResource("TileSet_687qm")
 collision_enabled = false
 
 [node name="moving_platform" parent="." instance=ExtResource("1_legw5")]
 position = Vector2(654, 142)
+
+[node name="skeleton" parent="." instance=ExtResource("8_687qm")]
+position = Vector2(130, 165)
 
 [node name="player" parent="." instance=ExtResource("1_vons5")]
 position = Vector2(105, 177)

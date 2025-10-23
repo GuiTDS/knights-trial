@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mr3x04is0v4"
-path="res://.godot/imported/Swordsman_lvl3_Hurt_with_shadow.png-5ac92277dbb9f26488318f4a98947b50.ctex"
+uid="uid://gjgxratoioak"
+path="res://.godot/imported/Skeleton_01_Yellow_Die.png-804deef2d66ff32dca45f12cb6195641.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/swordsman/Swordsman_lvl3_Hurt_with_shadow.png"
-dest_files=["res://.godot/imported/Swordsman_lvl3_Hurt_with_shadow.png-5ac92277dbb9f26488318f4a98947b50.ctex"]
+source_file="res://assets/Skeleton_Sword/Skeleton_Yellow/Skeleton_With_VFX/Skeleton_01_Yellow_Die.png"
+dest_files=["res://.godot/imported/Skeleton_01_Yellow_Die.png-804deef2d66ff32dca45f12cb6195641.ctex"]
 
 [params]
 

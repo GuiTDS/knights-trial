@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://tbcm8bo6lq8g"]
+
+[ext_resource type="Texture2D" uid="uid://bwt5g78bd4gv5" path="res://assets/Envs/Idylwild's Arcanum/potion_full_1.png" id="1_1ro3q"]
+[ext_resource type="Script" uid="uid://cucmdwsspb84f" path="res://scripts/potion.gd" id="1_e4n5m"]
+[ext_resource type="Texture2D" uid="uid://bc3kmk4eqlt4f" path="res://assets/Effects/Mini FX, Items & UI/Mini FX, Items & UI/Effects/Bright_Sparkle (16 x 16).png" id="2_fnlcb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e4n5m"]
+height = 28.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_en33f"]
+atlas = ExtResource("2_fnlcb")
+region = Rect2(0, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdur6"]
+atlas = ExtResource("2_fnlcb")
+region = Rect2(20, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lo1n"]
+atlas = ExtResource("2_fnlcb")
+region = Rect2(40, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7j4o1"]
+atlas = ExtResource("2_fnlcb")
+region = Rect2(60, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ngo2"]
+atlas = ExtResource("1_1ro3q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7hmf1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_en33f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdur6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lo1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7j4o1")
+}],
+"loop": false,
+"name": &"collect",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ngo2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="potion" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_e4n5m")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_e4n5m")
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7hmf1")
+animation = &"idle"
+autoplay = "idle"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

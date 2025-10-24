@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=4 uid="uid://b8prrkn4mmyya"]
+[gd_scene load_steps=18 format=4 uid="uid://b8prrkn4mmyya"]
 
 [ext_resource type="PackedScene" uid="uid://sfi21r31tqq5" path="res://world/prefabs/moving_platform.tscn" id="1_legw5"]
+[ext_resource type="Script" uid="uid://cmacs2dom50hq" path="res://levels/world.gd" id="1_lmpr0"]
 [ext_resource type="PackedScene" uid="uid://b0sejhkjri4dd" path="res://actors/player.tscn" id="1_vons5"]
 [ext_resource type="Texture2D" uid="uid://bv7t27ci4na4e" path="res://assets/Envs/Seasonal Tilesets/1 - Grassland/Terrain (16 x 16).png" id="2_legw5"]
 [ext_resource type="Texture2D" uid="uid://4lirbub2qbkl" path="res://assets/Envs/Seasonal Tilesets/2 - Autumn Forest/Terrain (16 x 16).png" id="3_687qm"]
@@ -250,6 +251,7 @@ texture = ExtResource("7_vons5")
 sources/0 = SubResource("TileSetAtlasSource_legw5")
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_lmpr0")
 
 [node name="ground" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -270,10 +272,20 @@ collision_enabled = false
 position = Vector2(654, 142)
 
 [node name="skeleton" parent="." instance=ExtResource("8_687qm")]
-position = Vector2(130, 165)
+position = Vector2(275, 163)
 
 [node name="player" parent="." instance=ExtResource("1_vons5")]
 position = Vector2(105, 177)
 scale = Vector2(0.6, 0.6)
 
 [node name="bg" parent="." instance=ExtResource("7_mla2a")]
+
+[node name="camera" type="Camera2D" parent="."]
+texture_filter = 1
+zoom = Vector2(1.3, 1.3)
+limit_left = 0
+limit_top = -10000001
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+editor_draw_limits = true

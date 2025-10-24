@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
 const SPEED = 200.0
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -350.0
 const X_COLLIDING_FORCE = 200
+const AIR_FRICTION := 0.7
 
 @onready var animation := $anim as AnimatedSprite2D
 @onready var remote_transform := $remote as RemoteTransform2D
@@ -17,10 +18,11 @@ var knockback_vector := Vector2.ZERO
 var direction
 
 func _physics_process(delta: float) -> void:
+	velocity.x = 0
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
+		
 	# Handle jump.
 	if Input.is_action_just_pressed("move_up") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
@@ -30,7 +32,7 @@ func _physics_process(delta: float) -> void:
 		
 	direction = Input.get_axis("move_left", "move_right")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = lerp(velocity.x, direction * SPEED, AIR_FRICTION)
 		animation.scale.x = direction # change player direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -45,10 +47,10 @@ func follow_camera(camera):
 	remote_transform.remote_path = camera_path
 
 func _on_hurtbox_body_entered(_body: Node2D) -> void:
-	if player_life == 0:
+	if player_life == 0: # player is dead, show animation
 		is_dead = true
-		await get_tree().create_timer(1).timeout
-		queue_free()
+		await get_tree().create_timer(1).timeout # timer to show complete animation
+		queue_free() # deleting the player from the scene
 	else:
 		if ray_right.is_colliding():
 			take_damage(Vector2(-X_COLLIDING_FORCE, -200))
@@ -63,10 +65,11 @@ func take_damage(knockback_force := Vector2.ZERO, duration := 0.25):
 		
 		var knockback_tween = get_tree().create_tween()
 		knockback_tween.parallel().tween_property(self, "knockback_vector", Vector2.ZERO, duration)
-		animation.modulate = Color(1, 0, 0, 1)
+		animation.modulate = Color(1, 0, 0, 1) # change the player color to Red
 		knockback_tween.parallel().tween_property(animation, "modulate", Color(1, 1, 1, 1), duration)
+		
 	is_hurted = true
-	await get_tree().create_timer(.3).timeout
+	await get_tree().create_timer(.3).timeout # timer to show animation
 	is_hurted = false
 	
 func _set_state():

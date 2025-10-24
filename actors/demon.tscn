@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://bv4lrm25d1hto"]
+
+[ext_resource type="Texture2D" uid="uid://bibscyp1de730" path="res://assets/Chars/Flying Demon 2D Pixel Art/Sprites/with_outline/IDLE.png" id="1_nupu7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yo83q"]
+atlas = ExtResource("1_nupu7")
+region = Rect2(0, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj6ta"]
+atlas = ExtResource("1_nupu7")
+region = Rect2(81, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6obv"]
+atlas = ExtResource("1_nupu7")
+region = Rect2(162, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mmb7"]
+atlas = ExtResource("1_nupu7")
+region = Rect2(243, 0, 81, 71)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1fpjs"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"flying",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yo83q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bj6ta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6obv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mmb7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4461r"]
+radius = 26.0
+height = 58.0
+
+[node name="demon" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1fpjs")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.262226
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7, 5)
+shape = SubResource("CapsuleShape2D_4461r")

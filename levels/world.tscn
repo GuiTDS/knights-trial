@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://b8prrkn4mmyya"]
+[gd_scene load_steps=19 format=4 uid="uid://b8prrkn4mmyya"]
 
 [ext_resource type="PackedScene" uid="uid://sfi21r31tqq5" path="res://world/prefabs/moving_platform.tscn" id="1_legw5"]
 [ext_resource type="Script" uid="uid://cmacs2dom50hq" path="res://levels/world.gd" id="1_lmpr0"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c8gbpoxq7q3pq" path="res://world/parallax/autumn_parallax.tscn" id="7_mla2a"]
 [ext_resource type="Texture2D" uid="uid://b4f71yq7pn7u" path="res://assets/Envs/Seasonal Tilesets/2 - Autumn Forest/Autumn_entities (16 x 16).png" id="7_vons5"]
 [ext_resource type="PackedScene" uid="uid://c4jtsl60ksbp6" path="res://actors/skeleton.tscn" id="8_687qm"]
+[ext_resource type="PackedScene" uid="uid://bv4lrm25d1hto" path="res://actors/demon.tscn" id="11_re8x6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dwbse"]
 texture = ExtResource("2_legw5")
@@ -253,6 +254,18 @@ sources/0 = SubResource("TileSetAtlasSource_legw5")
 [node name="World" type="Node2D"]
 script = ExtResource("1_lmpr0")
 
+[node name="bg" parent="." instance=ExtResource("7_mla2a")]
+
+[node name="camera" type="Camera2D" parent="."]
+texture_filter = 1
+zoom = Vector2(1.3, 1.3)
+limit_left = 0
+limit_top = -10000001
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+editor_draw_limits = true
+
 [node name="ground" type="TileMapLayer" parent="."]
 texture_filter = 1
 position = Vector2(-7, -13)
@@ -271,21 +284,15 @@ collision_enabled = false
 [node name="moving_platform" parent="." instance=ExtResource("1_legw5")]
 position = Vector2(654, 142)
 
-[node name="skeleton" parent="." instance=ExtResource("8_687qm")]
-position = Vector2(275, 163)
-
 [node name="player" parent="." instance=ExtResource("1_vons5")]
 position = Vector2(105, 177)
 scale = Vector2(0.6, 0.6)
 
-[node name="bg" parent="." instance=ExtResource("7_mla2a")]
+[node name="enemies" type="Node2D" parent="."]
 
-[node name="camera" type="Camera2D" parent="."]
-texture_filter = 1
-zoom = Vector2(1.3, 1.3)
-limit_left = 0
-limit_top = -10000001
-limit_smoothed = true
-position_smoothing_enabled = true
-position_smoothing_speed = 2.0
-editor_draw_limits = true
+[node name="demon" parent="enemies" instance=ExtResource("11_re8x6")]
+position = Vector2(435, 85)
+scale = Vector2(0.7, 0.7)
+
+[node name="skeleton" parent="enemies" instance=ExtResource("8_687qm")]
+position = Vector2(275, 163)

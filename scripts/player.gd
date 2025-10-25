@@ -91,11 +91,6 @@ func _on_anim_frame_changed() -> void:
 		if animation.frame == total_frames - 1:
 			is_attacking = false
 			attack_area.disabled = true
-			
-#func _on_hitbox_area_entered(area: Area2D) -> void:
-	#if area.is_in_group("enemies_hurtbox"):
-		### maybe here we can call body.take_damagr
-		#area.owner.queue_free()
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if player_life == 0: # player is dead, show animation

@@ -1,10 +1,9 @@
 extends CharacterBody2D
 
-const SPEED = 700.0
-const JUMP_VELOCITY = -400.0
+const SPEED = 40.0
 
 @onready var collision_detector := $collision_detector as RayCast2D
-@onready var anim := $anim as AnimatedSprite2D
+@onready var anim: AnimatedSprite2D = $anim
 
 var direction := -1
 var is_dying = false
@@ -23,9 +22,9 @@ func _physics_process(delta: float) -> void:
 		direction *= -1
 		collision_detector.scale.x *= -1
 	
-	anim.flip_h = direction == -1 # flip sprite
+	anim.scale.x = direction  * -1 # we multiply because the sprite is inverted (right to left)
 		
-	velocity.x = direction * SPEED * delta
+	velocity.x = direction * SPEED 
 
 	move_and_slide()
 
@@ -39,3 +38,7 @@ func _on_anim_animation_changed() -> void:
 		return
 	if anim.animation == "die":
 		is_dying = true
+
+
+func _on_hurtbox_area_entered(_area: Area2D) -> void:
+	anim.play("die")

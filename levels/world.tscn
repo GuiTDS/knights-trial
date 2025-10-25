@@ -288,7 +288,7 @@ position = Vector2(435, 85)
 scale = Vector2(0.7, 0.7)
 
 [node name="skeleton" parent="enemies" instance=ExtResource("8_687qm")]
-position = Vector2(275, 163)
+position = Vector2(462, 163)
 
 [node name="skeleton2" parent="enemies" instance=ExtResource("8_687qm")]
 position = Vector2(865, 156)
@@ -304,7 +304,7 @@ position_smoothing_speed = 2.0
 editor_draw_limits = true
 
 [node name="player" parent="." instance=ExtResource("1_vons5")]
-position = Vector2(105, 177)
+position = Vector2(132, 176)
 scale = Vector2(0.6, 0.6)
 
 [node name="bg" parent="." instance=ExtResource("7_mla2a")]

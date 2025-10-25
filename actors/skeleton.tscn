@@ -4,7 +4,9 @@
 [ext_resource type="Script" uid="uid://doslx1l7eqlki" path="res://scripts/skeleton.gd" id="1_pi2rp"]
 [ext_resource type="Texture2D" uid="uid://ce3irmvx8vjij" path="res://assets/Chars/Skeleton_Sword/Skeleton_White/Skeleton_With_VFX/Skeleton_01_White_Die.png" id="2_is6vc"]
 [ext_resource type="Texture2D" uid="uid://dgh22ryc4bnq6" path="res://assets/Chars/Skeleton_Sword/Skeleton_White/Skeleton_With_VFX/Skeleton_01_White_Walk.png" id="3_rxv74"]
-[ext_resource type="PackedScene" uid="uid://2u7to44qrvgw" path="res://world/prefabs/hitbox.tscn" id="4_6rtjr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rtjr"]
+size = Vector2(21, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oxhan"]
 atlas = ExtResource("2_is6vc")
@@ -246,41 +248,53 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pi2rp"]
-radius = 11.0
-height = 38.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwwkx"]
+size = Vector2(16, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_is6vc"]
-size = Vector2(11, 11.5)
+size = Vector2(24, 47.375)
 
-[node name="skeleton" type="CharacterBody2D" groups=["enemies"]]
+[node name="skeleton" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 18
+collision_mask = 2
 script = ExtResource("1_pi2rp")
-
-[node name="anim" type="AnimatedSprite2D" parent="."]
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_ppkl4")
-animation = &"walk"
-autoplay = "walk"
-flip_h = true
 
 [node name="animator" type="AnimationPlayer" parent="."]
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(1, 14)
-shape = SubResource("CapsuleShape2D_pi2rp")
+position = Vector2(4.5, 18)
+shape = SubResource("RectangleShape2D_6rtjr")
 
 [node name="collision_detector" type="RayCast2D" parent="."]
 target_position = Vector2(-22, 0)
 collision_mask = 6
 
-[node name="hitbox" parent="." instance=ExtResource("4_6rtjr")]
+[node name="anim" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(3, 0)
+sprite_frames = SubResource("SpriteFrames_ppkl4")
+animation = &"walk"
+autoplay = "walk"
+flip_h = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(3.5, -7.25)
+[node name="hitbox" type="Area2D" parent="anim"]
+collision_layer = 64
+collision_mask = 32
+
+[node name="collision" type="CollisionShape2D" parent="anim/hitbox"]
+position = Vector2(-14, 4.5)
+shape = SubResource("RectangleShape2D_fwwkx")
+debug_color = Color(0, 0.431373, 1, 0.419608)
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 16
+
+[node name="collision" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(3, 8.3125)
 shape = SubResource("RectangleShape2D_is6vc")
-debug_color = Color(0.967431, 0.168873, 0.168685, 0.42)
+debug_color = Color(1, 0, 0, 0.419608)
 
 [connection signal="animation_changed" from="anim" to="." method="_on_anim_animation_changed"]
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=37 format=3 uid="uid://b0sejhkjri4dd"]
+[gd_scene load_steps=45 format=3 uid="uid://b0sejhkjri4dd"]
 
 [ext_resource type="Script" uid="uid://b3i6iehlq34h8" path="res://scripts/player.gd" id="1_30xr1"]
+[ext_resource type="Texture2D" uid="uid://dys6vrux3ytnc" path="res://assets/Chars/Knight_player/Attack_KG_1.png" id="2_33vod"]
 [ext_resource type="Texture2D" uid="uid://srlnxwvyf8sm" path="res://assets/Chars/Knight_player/Hurt_KG_2.png" id="2_kjkj0"]
 [ext_resource type="Texture2D" uid="uid://dg2cbcyeh7ob6" path="res://assets/Chars/Knight_player/Dying_KG_2.png" id="2_tue77"]
 [ext_resource type="Texture2D" uid="uid://chqmg27f7fr4x" path="res://assets/Chars/Knight_player/Idle_KG_2.png" id="2_u64wh"]
@@ -9,6 +10,30 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvpqy"]
 size = Vector2(39, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hww8b"]
+atlas = ExtResource("2_33vod")
+region = Rect2(0, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cff5j"]
+atlas = ExtResource("2_33vod")
+region = Rect2(100, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yn6nh"]
+atlas = ExtResource("2_33vod")
+region = Rect2(200, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d40n3"]
+atlas = ExtResource("2_33vod")
+region = Rect2(300, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1r51q"]
+atlas = ExtResource("2_33vod")
+region = Rect2(400, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6gqw"]
+atlas = ExtResource("2_33vod")
+region = Rect2(500, 0, 100, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vsr4s"]
 atlas = ExtResource("2_tue77")
@@ -122,6 +147,29 @@ region = Rect2(600, 0, 100, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_hww8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cff5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yn6nh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d40n3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1r51q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6gqw")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vsr4s")
 }, {
 "duration": 1.0,
@@ -139,7 +187,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dulvp")
 }],
-"loop": true,
+"loop": false,
 "name": &"die",
 "speed": 5.0
 }, {
@@ -156,7 +204,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vsnin")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
 "speed": 10.0
 }, {
@@ -196,7 +244,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5nkr1")
 }],
-"loop": true,
+"loop": false,
 "name": &"jump",
 "speed": 4.0
 }, {
@@ -227,15 +275,16 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_33vod"]
+size = Vector2(30, 59)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_esgq3"]
-size = Vector2(44, 47)
+size = Vector2(44, 56.5)
 
 [node name="player" type="CharacterBody2D"]
 texture_filter = 1
 collision_mask = 22
 script = ExtResource("1_30xr1")
-
-[node name="animator" type="AnimationPlayer" parent="."]
 
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 4.5)
@@ -247,12 +296,21 @@ sprite_frames = SubResource("SpriteFrames_hiqwa")
 animation = &"idle"
 autoplay = "idle"
 
+[node name="hitbox" type="Area2D" parent="anim"]
+collision_layer = 16
+collision_mask = 4
+
+[node name="collision" type="CollisionShape2D" parent="anim/hitbox"]
+position = Vector2(34, 1.5)
+shape = SubResource("RectangleShape2D_33vod")
+disabled = true
+
 [node name="hurtbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
 
 [node name="collision" type="CollisionShape2D" parent="hurtbox"]
-position = Vector2(0, -3.5)
+position = Vector2(0, -4.75)
 shape = SubResource("RectangleShape2D_esgq3")
 debug_color = Color(0.749841, 0.0874973, 0.221559, 0.42)
 
@@ -268,4 +326,7 @@ position = Vector2(-12, 0)
 target_position = Vector2(-16, 0)
 collision_mask = 4
 
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
+[connection signal="frame_changed" from="anim" to="." method="_on_anim_frame_changed"]
+[connection signal="body_entered" from="anim/hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

@@ -9,10 +9,12 @@ const AIR_FRICTION := 0.7
 @onready var remote_transform := $remote as RemoteTransform2D
 @onready var ray_right := $ray_right as RayCast2D
 @onready var ray_left := $ray_left as RayCast2D
+@onready var attack_area := $anim/hitbox/collision as CollisionShape2D
 
 var is_jumping := false
 var is_hurted := false
 var is_dead := false
+var is_attacking := false
 var player_life := 4 # 5 hearts
 var knockback_vector := Vector2.ZERO
 var direction
@@ -29,6 +31,9 @@ func _physics_process(delta: float) -> void:
 		is_jumping = true
 	elif is_on_floor():
 		is_jumping = false
+		
+	if Input.is_action_just_pressed("attack"):
+		is_attacking = true
 		
 	direction = Input.get_axis("move_left", "move_right")
 	if direction:
@@ -86,5 +91,30 @@ func _set_state():
 	if is_dead:
 		state = "die"
 		
+	if is_attacking:
+		state = "attack"
+		
 	if animation.name != state:
 		animation.play(state)
+
+func _on_anim_animation_finished() -> void:
+	if animation.animation == "attack":
+		is_attacking = false
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemies"):
+		# maybe here we can call body.take_damagr
+		body.queue_free()
+
+func _on_anim_frame_changed() -> void:
+	if is_attacking and animation.animation == "attack":
+		if animation.frame == 1:
+			attack_area.disabled = false
+		else:
+			attack_area.disabled = true
+		
+		var total_frames = animation.sprite_frames.get_frame_count(animation.animation)
+		if animation.frame == total_frames - 1:
+			is_attacking = false
+			attack_area.disabled = true
+			

@@ -1,15 +1,15 @@
-# Knight's Trial
+# 🎮 Knight's Trial
 
-## Project Overview
+## 📝 Project Overview
 This game was developed as part of the curriculum for the Game Development course at the **Federal University of Technology – Paraná (UTFPR)**. The project aims to demonstrate practical application of game development concepts learned during the course.
 
-## Game Concept
+## 🚀 Game Concept
 This game features a single, large platforming level where the player navigates through different challenges, including platforming sections and combat encounters. The player faces enemies that attack both in melee and from a distance. Additionally, at certain intervals, a powerful enemy appears to challenge the player.  
 
 The gameplay is focused on platforming mechanics. The player moves using the **WASD** keys and attacks using the **J** key. Throughout the level, the player can collect health potions to recover life. The player has a total of five hearts representing their health, which decreases when taking damage from enemies or hazards.
 
 
-## References
+## 📚 References
 Here are the resources used as references for implementing game mechanics or coding techniques:
 
 - Melee attack tutorial (YouTube): [Link](https://www.youtube.com/watch?v=O5SUXhgpsvU)
@@ -17,7 +17,7 @@ Here are the resources used as references for implementing game mechanics or cod
 - Knockback effect: [Link](https://www.youtube.com/watch?v=Pi84AhGy7WM&list=PL-oJEh-N3A3SOPWuMuulbnJv0BFgvBnVG&index=10)
 - Moving Platform: [Link](https://www.youtube.com/watch?v=JfgKYUgDpLE&list=PL-oJEh-N3A3SOPWuMuulbnJv0BFgvBnVG&index=6)
 
-## Assets
+## 🎨 Assets
 This section lists all public assets used in the game, including sprites, sounds, and music:
 
 - Player sprites: [https://jumpbutton.itch.io/girlknightasset](https://jumpbutton.itch.io/girlknightasset)

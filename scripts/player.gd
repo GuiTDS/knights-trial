@@ -1,20 +1,24 @@
 extends CharacterBody2D
 
 const SPEED = 130.0
-const X_COLLIDING_FORCE = 250
 
 @onready var state_machine: StateMachine = $state_machine
 @onready var anim := $anim as AnimatedSprite2D
 @onready var remote_transform := $remote as RemoteTransform2D
 @onready var attack_area := $anim/hitbox/collision as CollisionShape2D
 
-var player_life := 4 # 5 hearts
-var knockback_vector := Vector2.ZERO
+## The current amount of life/health points of the player.
+## When this value reaches 0, the player enters the die_state.
+@export var player_life: int = 4 # 5 hearts
+## Horizontal force applied to the player when taking damage.
+@export var knockback_force_x = 250
+## Vertical force applied to the player when taking damage.
+@export var knockback_force_y = -120
+
 var knockback: Vector2
 
 func _ready() -> void:
 	velocity = Vector2.ZERO
-	
 	for s in state_machine.get_children():
 		if s is State:
 			s.player = self
@@ -42,7 +46,7 @@ func follow_camera(camera):
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	var attacker = area.get_parent() # enemy node reference
 	if attacker.global_position.x > global_position.x:
-		knockback = Vector2(-X_COLLIDING_FORCE, -120)
+		knockback = Vector2(-knockback_force_x, knockback_force_y)
 	else:
-		knockback = Vector2(X_COLLIDING_FORCE, -120)
+		knockback = Vector2(knockback_force_x, knockback_force_y)
 	state_machine.change_state(state_machine.get_node("hurt_state"))

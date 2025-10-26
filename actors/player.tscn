@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://b0sejhkjri4dd"]
+[gd_scene load_steps=52 format=3 uid="uid://b0sejhkjri4dd"]
 
 [ext_resource type="Script" uid="uid://b3i6iehlq34h8" path="res://scripts/player.gd" id="1_30xr1"]
 [ext_resource type="Texture2D" uid="uid://dys6vrux3ytnc" path="res://assets/Chars/Knight_player/Attack_KG_1.png" id="2_33vod"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://5hj2aad1fl8b" path="res://scripts/player/attack_state.gd" id="11_41w2c"]
 [ext_resource type="Script" uid="uid://bmmlkc0h6swnh" path="res://scripts/player/jump_state.gd" id="11_rkwqa"]
 [ext_resource type="Script" uid="uid://d3geonob3bfn7" path="res://scripts/player/hurt_state.gd" id="13_5nkr1"]
+[ext_resource type="Script" uid="uid://cnwo5pmwkk4r" path="res://scripts/player/die_state.gd" id="14_31m4k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvpqy"]
 size = Vector2(39, 55)
@@ -299,7 +300,7 @@ shape = SubResource("RectangleShape2D_mvpqy")
 [node name="anim" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_hiqwa")
-animation = &"hurt"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="hitbox" type="Area2D" parent="anim"]
@@ -341,5 +342,8 @@ script = ExtResource("11_rkwqa")
 
 [node name="hurt_state" type="Node" parent="state_machine"]
 script = ExtResource("13_5nkr1")
+
+[node name="die_state" type="Node" parent="state_machine"]
+script = ExtResource("14_31m4k")
 
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

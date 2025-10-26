@@ -1,12 +1,53 @@
-[gd_scene load_steps=40 format=3 uid="uid://c4jtsl60ksbp6"]
+[gd_scene load_steps=51 format=3 uid="uid://c4jtsl60ksbp6"]
 
 [ext_resource type="Texture2D" uid="uid://m3m48p4miuav" path="res://assets/Chars/Skeleton_Sword/Skeleton_White/Skeleton_With_VFX/Skeleton_01_White_Idle.png" id="1_m7voy"]
 [ext_resource type="Script" uid="uid://doslx1l7eqlki" path="res://scripts/skeleton.gd" id="1_pi2rp"]
+[ext_resource type="Texture2D" uid="uid://bd7j1muyjo535" path="res://assets/Chars/Skeleton_Sword/Skeleton_White/Skeleton_With_VFX/Skeleton_01_White_Attack1.png" id="2_fwwkx"]
 [ext_resource type="Texture2D" uid="uid://ce3irmvx8vjij" path="res://assets/Chars/Skeleton_Sword/Skeleton_White/Skeleton_With_VFX/Skeleton_01_White_Die.png" id="2_is6vc"]
 [ext_resource type="Texture2D" uid="uid://dgh22ryc4bnq6" path="res://assets/Chars/Skeleton_Sword/Skeleton_White/Skeleton_With_VFX/Skeleton_01_White_Walk.png" id="3_rxv74"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rtjr"]
 size = Vector2(21, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jajj"]
+atlas = ExtResource("2_fwwkx")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84h02"]
+atlas = ExtResource("2_fwwkx")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2b07"]
+atlas = ExtResource("2_fwwkx")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ul44d"]
+atlas = ExtResource("2_fwwkx")
+region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvlly"]
+atlas = ExtResource("2_fwwkx")
+region = Rect2(384, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pekhc"]
+atlas = ExtResource("2_fwwkx")
+region = Rect2(480, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ypmk"]
+atlas = ExtResource("2_fwwkx")
+region = Rect2(576, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68i25"]
+atlas = ExtResource("2_fwwkx")
+region = Rect2(672, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npb0m"]
+atlas = ExtResource("2_fwwkx")
+region = Rect2(768, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ws7j3"]
+atlas = ExtResource("2_fwwkx")
+region = Rect2(864, 0, 96, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oxhan"]
 atlas = ExtResource("2_is6vc")
@@ -134,10 +175,40 @@ region = Rect2(864, 0, 96, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ppkl4"]
 animations = [{
-"frames": [],
-"loop": true,
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jajj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84h02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2b07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ul44d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvlly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pekhc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ypmk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68i25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_npb0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ws7j3")
+}],
+"loop": false,
 "name": &"attack",
-"speed": 5.0
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -259,8 +330,6 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_pi2rp")
 
-[node name="animator" type="AnimationPlayer" parent="."]
-
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(4.5, 18)
 shape = SubResource("RectangleShape2D_6rtjr")
@@ -273,8 +342,10 @@ collision_mask = 6
 texture_filter = 1
 position = Vector2(3, 0)
 sprite_frames = SubResource("SpriteFrames_ppkl4")
-animation = &"walk"
+animation = &"attack"
 autoplay = "walk"
+frame = 9
+frame_progress = 1.0
 flip_h = true
 
 [node name="hitbox" type="Area2D" parent="anim"]
@@ -284,6 +355,7 @@ collision_mask = 32
 [node name="collision" type="CollisionShape2D" parent="anim/hitbox"]
 position = Vector2(-14, 4.5)
 shape = SubResource("RectangleShape2D_fwwkx")
+disabled = true
 debug_color = Color(0, 0.431373, 1, 0.419608)
 
 [node name="hurtbox" type="Area2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://b0sejhkjri4dd"]
+[gd_scene load_steps=51 format=3 uid="uid://b0sejhkjri4dd"]
 
 [ext_resource type="Script" uid="uid://b3i6iehlq34h8" path="res://scripts/player.gd" id="1_30xr1"]
 [ext_resource type="Texture2D" uid="uid://dys6vrux3ytnc" path="res://assets/Chars/Knight_player/Attack_KG_1.png" id="2_33vod"]
@@ -7,6 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://chqmg27f7fr4x" path="res://assets/Chars/Knight_player/Idle_KG_2.png" id="2_u64wh"]
 [ext_resource type="Texture2D" uid="uid://d3rbw7l7oybj2" path="res://assets/Chars/Knight_player/Jump_KG_2.png" id="3_3y6bo"]
 [ext_resource type="Texture2D" uid="uid://bap2fyakdc83y" path="res://assets/Chars/Knight_player/Walking_KG_2.png" id="4_vhdyn"]
+[ext_resource type="Script" uid="uid://b32ktncwcp63w" path="res://scripts/player/idle_state.gd" id="8_er1rk"]
+[ext_resource type="Script" uid="uid://dslc8fs414onq" path="res://scripts/player/state_machine.gd" id="8_ua707"]
+[ext_resource type="Script" uid="uid://dxkeda6pf6grv" path="res://scripts/player/move_state.gd" id="9_e7yfm"]
+[ext_resource type="Script" uid="uid://5hj2aad1fl8b" path="res://scripts/player/attack_state.gd" id="11_41w2c"]
+[ext_resource type="Script" uid="uid://bmmlkc0h6swnh" path="res://scripts/player/jump_state.gd" id="11_rkwqa"]
+[ext_resource type="Script" uid="uid://d3geonob3bfn7" path="res://scripts/player/hurt_state.gd" id="13_5nkr1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvpqy"]
 size = Vector2(39, 55)
@@ -206,7 +212,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 10.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -293,7 +299,7 @@ shape = SubResource("RectangleShape2D_mvpqy")
 [node name="anim" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_hiqwa")
-animation = &"idle"
+animation = &"hurt"
 autoplay = "idle"
 
 [node name="hitbox" type="Area2D" parent="anim"]
@@ -317,6 +323,23 @@ debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="remote" type="RemoteTransform2D" parent="."]
 
-[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
-[connection signal="frame_changed" from="anim" to="." method="_on_anim_frame_changed"]
+[node name="state_machine" type="Node" parent="."]
+script = ExtResource("8_ua707")
+initial_state = NodePath("idle_state")
+
+[node name="idle_state" type="Node" parent="state_machine"]
+script = ExtResource("8_er1rk")
+
+[node name="move_state" type="Node" parent="state_machine"]
+script = ExtResource("9_e7yfm")
+
+[node name="attack_state" type="Node" parent="state_machine"]
+script = ExtResource("11_41w2c")
+
+[node name="jump_state" type="Node" parent="state_machine"]
+script = ExtResource("11_rkwqa")
+
+[node name="hurt_state" type="Node" parent="state_machine"]
+script = ExtResource("13_5nkr1")
+
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

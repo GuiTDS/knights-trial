@@ -16,6 +16,7 @@ Here are the resources used as references for implementing game mechanics or cod
 - Godot movement and collision handling guide: [Link](https://docs.godotengine.org/en/stable/tutorials/physics/using_character_body_2d.html)
 - Knockback effect: [Link](https://www.youtube.com/watch?v=Pi84AhGy7WM&list=PL-oJEh-N3A3SOPWuMuulbnJv0BFgvBnVG&index=10)
 - Moving Platform: [Link](https://www.youtube.com/watch?v=JfgKYUgDpLE&list=PL-oJEh-N3A3SOPWuMuulbnJv0BFgvBnVG&index=6)
+- Finite state machine: [Link](https://www.gdquest.com/tutorial/godot/design-patterns/finite-state-machine/)
 
 ## 🎨 Assets
 This section lists all public assets used in the game, including sprites, sounds, and music:

@@ -14,8 +14,12 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func _on_body_entered(_body: Node2D) -> void:
+func _on_body_entered(body: Node2D) -> void:
+	if body.health == body.max_health:
+		return
 	anim.play("collect")
+	body.health += 1
+	body.emit_signal("stats_changed", body)
 
 
 func _on_anim_animation_finished() -> void:

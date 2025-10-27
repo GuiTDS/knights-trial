@@ -355,7 +355,6 @@ collision_mask = 32
 [node name="collision" type="CollisionShape2D" parent="anim/hitbox"]
 position = Vector2(-14, 4.5)
 shape = SubResource("RectangleShape2D_fwwkx")
-disabled = true
 debug_color = Color(0, 0.431373, 1, 0.419608)
 
 [node name="hurtbox" type="Area2D" parent="."]

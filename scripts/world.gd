@@ -7,6 +7,6 @@ extends Node2D
 func _ready() -> void:
 	player.follow_camera(camera)
 
-# Cdalled every frame. 'delta' is the elapsed time since the previous frame.
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass

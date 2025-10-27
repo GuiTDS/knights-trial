@@ -16,13 +16,13 @@ func exit() -> void:
 	set_physics_process(false)
 	
 # handle input events
-func handle_input(event) -> void:
+func handle_input(_event) -> void:
 	pass
 
 # normal update
-func update(delta: float) -> void:
+func update(_delta: float) -> void:
 	pass
 
 # physics update
-func physics_update(delta: float) -> void:
+func physics_update(_delta: float) -> void:
 	pass

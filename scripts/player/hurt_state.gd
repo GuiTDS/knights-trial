@@ -3,14 +3,17 @@ extends State
 const KNOCKBACK_DURATION := 0.25
 
 func enter() -> void:
-	if player.player_life == 0:
+	_apply_knockback(player.knockback)
+	
+	if player.health <= 0:
 		state_machine.change_state(state_machine.get_node("die_state"))
 		return
+		
 	player.anim.play("hurt")
-	_apply_knockback(player.knockback)
 
 func _apply_knockback(knockback_force := Vector2.ZERO) -> void:
-	player.player_life -= 1
+	player.health -= 1
+	player.emit_signal("stats_changed", player)
 	
 	player.velocity = knockback_force
 	player.anim.modulate = Color(1, 0, 0)

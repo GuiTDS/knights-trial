@@ -8,16 +8,20 @@ const SPEED = 130.0
 @onready var attack_area := $anim/hitbox/collision as CollisionShape2D
 
 ## The current amount of life/health points of the player.
-## When this value reaches 0, the player enters the die_state.
-@export var player_life: int = 4 # 5 hearts
+## When this value reaches 0, the player dies.
+@export var max_health: int = 5 
 ## Horizontal force applied to the player when taking damage.
 @export var knockback_force_x = 250
 ## Vertical force applied to the player when taking damage.
 @export var knockback_force_y = -120
 
+var health
 var knockback: Vector2
 
+signal stats_changed
+
 func _ready() -> void:
+	health = max_health
 	velocity = Vector2.ZERO
 	for s in state_machine.get_children():
 		if s is State:

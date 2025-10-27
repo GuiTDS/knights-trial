@@ -1,6 +1,6 @@
-[gd_scene load_steps=19 format=4 uid="uid://b8prrkn4mmyya"]
+[gd_scene load_steps=21 format=4 uid="uid://b8prrkn4mmyya"]
 
-[ext_resource type="Script" uid="uid://cmacs2dom50hq" path="res://levels/world.gd" id="1_lmpr0"]
+[ext_resource type="Script" uid="uid://cmacs2dom50hq" path="res://scripts/world.gd" id="1_lmpr0"]
 [ext_resource type="PackedScene" uid="uid://b0sejhkjri4dd" path="res://actors/player.tscn" id="1_vons5"]
 [ext_resource type="Texture2D" uid="uid://bv7t27ci4na4e" path="res://assets/Envs/Seasonal Tilesets/1 - Grassland/Terrain (16 x 16).png" id="2_legw5"]
 [ext_resource type="Texture2D" uid="uid://4lirbub2qbkl" path="res://assets/Envs/Seasonal Tilesets/2 - Autumn Forest/Terrain (16 x 16).png" id="3_687qm"]
@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://b4f71yq7pn7u" path="res://assets/Envs/Seasonal Tilesets/2 - Autumn Forest/Autumn_entities (16 x 16).png" id="7_vons5"]
 [ext_resource type="PackedScene" uid="uid://c4jtsl60ksbp6" path="res://actors/skeleton.tscn" id="8_687qm"]
 [ext_resource type="PackedScene" uid="uid://bv4lrm25d1hto" path="res://actors/demon.tscn" id="11_re8x6"]
+[ext_resource type="Script" uid="uid://celr548tq0b2n" path="res://scripts/hud/hp.gd" id="12_mla2a"]
 [ext_resource type="PackedScene" uid="uid://tbcm8bo6lq8g" path="res://world/prefabs/potion.tscn" id="12_wqmfy"]
+[ext_resource type="PackedScene" uid="uid://bac8bifb5muo" path="res://world/hud/pause_menu.tscn" id="13_mla2a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dwbse"]
 texture = ExtResource("2_legw5")
@@ -308,3 +310,50 @@ position = Vector2(132, 176)
 scale = Vector2(0.6, 0.6)
 
 [node name="bg" parent="." instance=ExtResource("7_mla2a")]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="control" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="hp" type="ColorRect" parent="HUD/control"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 90.0
+offset_bottom = 17.0
+color = Color(0, 0, 0, 0.509804)
+script = ExtResource("12_mla2a")
+
+[node name="bar" type="ColorRect" parent="HUD/control/hp"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 73.0
+offset_bottom = 8.0
+color = Color(0.812712, 0.441213, 0.573215, 1)
+
+[node name="mp" type="ColorRect" parent="HUD/control"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 20.0
+offset_right = 64.0
+offset_bottom = 29.0
+color = Color(0, 0, 0, 0.509804)
+
+[node name="bar" type="ColorRect" parent="HUD/control/mp"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 47.0
+offset_bottom = 8.0
+color = Color(0.495327, 0.501697, 0.715865, 1)
+
+[node name="pause_menu" parent="." instance=ExtResource("13_mla2a")]
+
+[connection signal="stats_changed" from="player" to="HUD/control/hp" method="_on_player_stats_changed"]

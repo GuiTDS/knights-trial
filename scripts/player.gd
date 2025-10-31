@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 130.0
+const SPEED = 120.0
 
 @onready var state_machine: StateMachine = $state_machine
 @onready var anim := $anim as AnimatedSprite2D

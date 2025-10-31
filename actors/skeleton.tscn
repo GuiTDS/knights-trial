@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://c4jtsl60ksbp6"]
+[gd_scene load_steps=52 format=3 uid="uid://c4jtsl60ksbp6"]
 
 [ext_resource type="Texture2D" uid="uid://m3m48p4miuav" path="res://assets/Chars/Skeleton_Sword/Skeleton_White/Skeleton_With_VFX/Skeleton_01_White_Idle.png" id="1_m7voy"]
 [ext_resource type="Script" uid="uid://doslx1l7eqlki" path="res://scripts/skeleton.gd" id="1_pi2rp"]
@@ -320,10 +320,13 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fwwkx"]
-size = Vector2(16, 27)
+size = Vector2(41, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_is6vc"]
-size = Vector2(24, 47.375)
+size = Vector2(22, 31.375)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vfwdo"]
+size = Vector2(105, 32)
 
 [node name="skeleton" type="CharacterBody2D"]
 collision_layer = 4
@@ -334,7 +337,7 @@ script = ExtResource("1_pi2rp")
 position = Vector2(4.5, 18)
 shape = SubResource("RectangleShape2D_6rtjr")
 
-[node name="collision_detector" type="RayCast2D" parent="."]
+[node name="wall_detector" type="RayCast2D" parent="."]
 target_position = Vector2(-22, 0)
 collision_mask = 6
 
@@ -342,10 +345,8 @@ collision_mask = 6
 texture_filter = 1
 position = Vector2(3, 0)
 sprite_frames = SubResource("SpriteFrames_ppkl4")
-animation = &"attack"
+animation = &"walk"
 autoplay = "walk"
-frame = 9
-frame_progress = 1.0
 flip_h = true
 
 [node name="hitbox" type="Area2D" parent="anim"]
@@ -353,8 +354,9 @@ collision_layer = 64
 collision_mask = 32
 
 [node name="collision" type="CollisionShape2D" parent="anim/hitbox"]
-position = Vector2(-14, 4.5)
+position = Vector2(-26.5, -0.5)
 shape = SubResource("RectangleShape2D_fwwkx")
+disabled = true
 debug_color = Color(0, 0.431373, 1, 0.419608)
 
 [node name="hurtbox" type="Area2D" parent="."]
@@ -366,6 +368,15 @@ position = Vector2(3, 8.3125)
 shape = SubResource("RectangleShape2D_is6vc")
 debug_color = Color(1, 0, 0, 0.419608)
 
-[connection signal="animation_changed" from="anim" to="." method="_on_anim_animation_changed"]
+[node name="player_detection_area" type="Area2D" parent="."]
+collision_layer = 256
+
+[node name="collision" type="CollisionShape2D" parent="player_detection_area"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_vfwdo")
+debug_color = Color(0.503033, 0.566577, 0.360544, 0.42)
+
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="player_detection_area" to="." method="_on_player_detection_area_body_entered"]
+[connection signal="body_exited" from="player_detection_area" to="." method="_on_player_detection_area_body_exited"]

@@ -24,6 +24,7 @@ This section lists all public assets used in the game, including sprites, sounds
 
 - Player sprites: [https://jumpbutton.itch.io/girlknightasset](https://jumpbutton.itch.io/girlknightasset)
 - Skeletons sprites: [https://monopixelart.itch.io/skeletons-pack](https://monopixelart.itch.io/skeletons-pack)
+- Skeleton 2: [https://astrobob.itch.io/animated-pixel-art-skeleton](https://astrobob.itch.io/animated-pixel-art-skeleton)
 - Flying demon sprites: [https://xzany.itch.io/flying-demon-2d-pixel-art](https://xzany.itch.io/flying-demon-2d-pixel-art)
 - Potion sprite: [https://idylwild.itch.io/idylwilds-arcanum](https://idylwild.itch.io/idylwilds-arcanum)
 - Seasonal Tilesets: [https://grafxkid.itch.io/seasonal-tilesets](https://grafxkid.itch.io/seasonal-tilesets)

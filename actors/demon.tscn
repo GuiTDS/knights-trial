@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bv4lrm25d1hto"]
+[gd_scene load_steps=13 format=3 uid="uid://bv4lrm25d1hto"]
 
-[ext_resource type="Texture2D" uid="uid://bibscyp1de730" path="res://assets/Chars/Flying Demon 2D Pixel Art/Sprites/with_outline/IDLE.png" id="1_nupu7"]
+[ext_resource type="Texture2D" uid="uid://cee8ub6yrwnw3" path="res://assets/Chars/Flying Demon 2D Pixel Art/Sprites/with_outline/FLYING.png" id="1_nupu7"]
+[ext_resource type="Script" uid="uid://c6bioxbppm020" path="res://scripts/demon.gd" id="1_yo83q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yo83q"]
 atlas = ExtResource("1_nupu7")
@@ -20,11 +21,6 @@ region = Rect2(243, 0, 81, 71)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1fpjs"]
 animations = [{
-"frames": [],
-"loop": true,
-"name": &"flying",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yo83q")
@@ -39,24 +35,91 @@ animations = [{
 "texture": SubResource("AtlasTexture_8mmb7")
 }],
 "loop": true,
-"name": &"idle",
-"speed": 6.0
+"name": &"default",
+"speed": 7.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4461r"]
-radius = 26.0
-height = 58.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_4461r"]
+radius = 31.3847
 
-[node name="demon" type="CharacterBody2D"]
-collision_layer = 4
-collision_mask = 2
+[sub_resource type="Curve2D" id="Curve2D_aqswc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -7, -33.9898, 0, 0, 0, 0, 287, 34.7041, 0, 0, 0, 0, 487, 13.4898, 0, 0, 0, 0, 608, 24.6021, 0, 0, 0, 0, 682, 91.2755)
+}
+point_count = 5
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[sub_resource type="Animation" id="Animation_yo83q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("path2D/path_follow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_nupu7"]
+resource_name = "spawn"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("path2D/path_follow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bj6ta"]
+_data = {
+&"RESET": SubResource("Animation_yo83q"),
+&"spawn": SubResource("Animation_nupu7")
+}
+
+[node name="base_patrol" type="Node2D"]
+
+[node name="demon" type="CharacterBody2D" parent="."]
+position = Vector2(3.99999, -1.33338)
+scale = Vector2(1, 0.989899)
+collision_layer = 0
+script = ExtResource("1_yo83q")
+
+[node name="anim" type="AnimatedSprite2D" parent="demon"]
 sprite_frames = SubResource("SpriteFrames_1fpjs")
-animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.262226
+autoplay = "default"
+frame_progress = 0.0857569
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-7, 5)
-shape = SubResource("CapsuleShape2D_4461r")
+[node name="collision" type="CollisionShape2D" parent="demon"]
+position = Vector2(-10, -1)
+shape = SubResource("CircleShape2D_4461r")
+
+[node name="path2D" type="Path2D" parent="."]
+position = Vector2(0, -0.353546)
+scale = Vector2(1, 0.989899)
+curve = SubResource("Curve2D_aqswc")
+
+[node name="path_follow2D" type="PathFollow2D" parent="path2D"]
+position = Vector2(-7, -33.9898)
+rotation = -0.552419
+rotates = false
+
+[node name="remote" type="RemoteTransform2D" parent="path2D/path_follow2D"]
+position = Vector2(-7.95284, 33.8637)
+rotation = 0.552419
+remote_path = NodePath("../../../demon")
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_bj6ta")
+}
+autoplay = "spawn"
+speed_scale = 0.2

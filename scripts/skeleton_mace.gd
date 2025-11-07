@@ -80,14 +80,6 @@ func _verify_wall_colision() -> void:
 		direction *= -1
 		wall_detector.scale.x *= -1
 
-func _on_player_detection_area_body_entered(body: Node2D) -> void:
-	target = body
-	current_state = State.CHASE
-	
-func _on_player_detection_area_body_exited(body: Node2D) -> void:
-	target = null
-	if current_state != State.ATTACK:
-		current_state = State.PATROL
 
 func _on_anim_animation_finished() -> void:
 	if anim.animation == "die":
@@ -104,8 +96,17 @@ func _start_attack_cooldown() -> void:
 	can_attack = false
 	await get_tree().create_timer(ATTACK_COOLDOWN).timeout
 	can_attack = true
+	
+func _on_player_detection_area_body_entered(body: Node2D) -> void:
+	target = body
+	current_state = State.CHASE
 
-func _on_hurtbox_area_entered(_area: Area2D) -> void:
+func _on_player_detection_area_body_exited(body: Node2D) -> void:
+	target = null
+	if current_state != State.ATTACK:
+		current_state = State.PATROL
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
 	is_dead = true
 	anim.play("die")
 	velocity = Vector2.ZERO

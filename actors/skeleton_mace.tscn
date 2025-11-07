@@ -1,5 +1,6 @@
-[gd_scene load_steps=45 format=3 uid="uid://07abiai4o3w5"]
+[gd_scene load_steps=46 format=3 uid="uid://07abiai4o3w5"]
 
+[ext_resource type="Script" uid="uid://cxvxb0splh8rl" path="res://scripts/skeleton_mace.gd" id="1_y12du"]
 [ext_resource type="Texture2D" uid="uid://cjvj6nh5tq43l" path="res://assets/Chars/Skeleton enemy/Skeleton enemy.png" id="2_on0qq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rtjr"]
@@ -199,7 +200,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bmws0")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 6.0
 }, {
@@ -243,7 +244,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_o3s48")
 }],
-"loop": true,
+"loop": false,
 "name": &"die",
 "speed": 5.0
 }, {
@@ -284,7 +285,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rcsc8")
 }],
-"loop": true,
+"loop": false,
 "name": &"walk",
 "speed": 8.0
 }]
@@ -302,6 +303,7 @@ size = Vector2(105, 32)
 scale = Vector2(1.6, 1.6)
 collision_layer = 4
 collision_mask = 2
+script = ExtResource("1_y12du")
 
 [node name="collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6rtjr")
@@ -312,9 +314,8 @@ collision_mask = 6
 
 [node name="anim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ke1yp")
-animation = &"attack"
+animation = &"walk"
 autoplay = "walk"
-frame_progress = 0.48159
 flip_h = true
 
 [node name="hitbox" type="Area2D" parent="anim"]
@@ -344,6 +345,7 @@ position = Vector2(2.5, 0)
 shape = SubResource("RectangleShape2D_vfwdo")
 debug_color = Color(0.503033, 0.566577, 0.360544, 0.42)
 
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="player_detection_area" to="." method="_on_player_detection_area_body_entered"]
 [connection signal="body_exited" from="player_detection_area" to="." method="_on_player_detection_area_body_exited"]

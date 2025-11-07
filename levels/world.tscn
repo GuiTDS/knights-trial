@@ -334,7 +334,7 @@ position = Vector2(977, 83)
 [node name="enemies" type="Node2D" parent="."]
 
 [node name="demon" parent="enemies" instance=ExtResource("11_re8x6")]
-position = Vector2(435, 85)
+position = Vector2(20, -15)
 scale = Vector2(0.7, 0.7)
 
 [node name="skeleton" parent="enemies" instance=ExtResource("8_687qm")]

@@ -1,7 +1,40 @@
-[gd_scene load_steps=13 format=3 uid="uid://bv4lrm25d1hto"]
+[gd_scene load_steps=22 format=3 uid="uid://bv4lrm25d1hto"]
 
 [ext_resource type="Texture2D" uid="uid://cee8ub6yrwnw3" path="res://assets/Chars/Flying Demon 2D Pixel Art/Sprites/with_outline/FLYING.png" id="1_nupu7"]
 [ext_resource type="Script" uid="uid://c6bioxbppm020" path="res://scripts/demon.gd" id="1_yo83q"]
+[ext_resource type="Texture2D" uid="uid://ccgj8jsk8a24y" path="res://assets/Chars/Flying Demon 2D Pixel Art/Sprites/with_outline/ATTACK.png" id="2_bj6ta"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fpjs"]
+atlas = ExtResource("2_bj6ta")
+region = Rect2(0, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4461r"]
+atlas = ExtResource("2_bj6ta")
+region = Rect2(81, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqswc"]
+atlas = ExtResource("2_bj6ta")
+region = Rect2(162, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwnf4"]
+atlas = ExtResource("2_bj6ta")
+region = Rect2(243, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjmxo"]
+atlas = ExtResource("2_bj6ta")
+region = Rect2(324, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0q2w"]
+atlas = ExtResource("2_bj6ta")
+region = Rect2(405, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxva5"]
+atlas = ExtResource("2_bj6ta")
+region = Rect2(486, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_asic2"]
+atlas = ExtResource("2_bj6ta")
+region = Rect2(567, 0, 81, 71)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yo83q"]
 atlas = ExtResource("1_nupu7")
@@ -23,6 +56,35 @@ region = Rect2(243, 0, 81, 71)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_1fpjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4461r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqswc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwnf4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjmxo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0q2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nxva5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_asic2")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_yo83q")
 }, {
 "duration": 1.0,
@@ -35,7 +97,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_8mmb7")
 }],
 "loop": true,
-"name": &"default",
+"name": &"flying",
 "speed": 7.0
 }]
 
@@ -50,18 +112,6 @@ point_count = 5
 
 [sub_resource type="Animation" id="Animation_yo83q"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("path2D/path_follow2D:progress_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_nupu7"]
 resource_name = "spawn"
@@ -95,12 +145,15 @@ script = ExtResource("1_yo83q")
 
 [node name="anim" type="AnimatedSprite2D" parent="demon"]
 sprite_frames = SubResource("SpriteFrames_1fpjs")
-autoplay = "default"
-frame_progress = 0.0857569
+animation = &"flying"
+autoplay = "flying"
 
 [node name="collision" type="CollisionShape2D" parent="demon"]
 position = Vector2(-10, -1)
 shape = SubResource("CircleShape2D_4461r")
+
+[node name="fireball_spawn_point" type="Marker2D" parent="demon"]
+position = Vector2(-12, 11.449)
 
 [node name="path2D" type="Path2D" parent="."]
 position = Vector2(0, -0.353546)
@@ -111,11 +164,7 @@ curve = SubResource("Curve2D_aqswc")
 position = Vector2(-7, -33.9898)
 rotation = -0.552419
 rotates = false
-
-[node name="remote" type="RemoteTransform2D" parent="path2D/path_follow2D"]
-position = Vector2(-7.95284, 33.8637)
-rotation = 0.552419
-remote_path = NodePath("../../../demon")
+cubic_interp = false
 
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {

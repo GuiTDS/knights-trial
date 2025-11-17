@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://belxh4oacd4j4"]
+
+[ext_resource type="Texture2D" uid="uid://udweycosol4a" path="res://assets/Chars/Flying Demon 2D Pixel Art/Sprites/projectile.png" id="1_3sxiy"]
+[ext_resource type="Script" uid="uid://ctg8ajemov8uj" path="res://scripts/fireball.gd" id="1_f6416"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6416"]
+atlas = ExtResource("1_3sxiy")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g5alx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6416")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n5mvq"]
+height = 34.0
+
+[node name="fireball" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_f6416")
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_g5alx")
+autoplay = "default"
+frame_progress = 0.85169
+flip_h = true
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_n5mvq")

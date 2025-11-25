@@ -3,7 +3,7 @@ extends CharacterBody2D
 const FIREBALL = preload("res://world/prefabs/fireball.tscn")
 
 @export var speed := 100.0
-@export var respawn_time := 10.0
+@export var respawn_time := 120.0
 
 # spawn offsets
 const SPAWN_OFFSET_X = -300.0
@@ -17,7 +17,6 @@ var is_active := false
 var is_paused := false
 var already_attacked := false
 
-
 func _ready() -> void:
 	hide()
 	set_physics_process(false)
@@ -26,6 +25,8 @@ func _ready() -> void:
 
 func _start_spawn_timer() -> void:
 	await get_tree().create_timer(respawn_time).timeout
+	var world = get_parent().get_parent().get_parent()
+	world.toggle_camera_movement()
 	_spawn_enemy_near_player()
 
 
@@ -39,10 +40,8 @@ func _spawn_enemy_near_player() -> void:
 
 	var spawn_pos = player.global_position + Vector2(SPAWN_OFFSET_X, SPAWN_OFFSET_Y)
 
-	# posiciona o base_patrol no mundo
 	get_parent().global_position = spawn_pos
 
-	# reseta o path
 	path_follow.progress = 0.0
 
 	show()
@@ -57,17 +56,14 @@ func _physics_process(delta: float) -> void:
 	if !is_active:
 		return
 
-	# só move se não estiver pausado
 	if !is_paused:
 		path_follow.progress += speed * delta
 		global_position = path_follow.global_position
 
-		# chegou no fim do path e ainda não atacou
 		if path_follow.progress_ratio >= 0.99 and not already_attacked:
 			already_attacked = true
 			_attack()
 
-	# Detecta reinício do loop somente quando está se movendo
 	if !is_paused and path_follow.progress_ratio <= 0.01 and already_attacked:
 		_on_path_loop_restart()
 
@@ -77,13 +73,11 @@ func _attack() -> void:
 	is_paused = true
 	
 
-	# trava o path
 	var saved_progress = path_follow.progress
 	path_follow.progress = saved_progress
 
 	anim.play("attack")
 
-	# instancia fireball
 	var fb = FIREBALL.instantiate()
 	fb.global_position = fireball_spawn_point.global_position
 
@@ -94,16 +88,16 @@ func _attack() -> void:
 
 	get_tree().current_scene.add_child(fb)
 
-	# espera a animação e então prossegue
 	await anim.animation_finished
 
-	# retoma movimento
 	path_follow.set_process(false)
 	is_paused = false
 	anim.play("flying")
 
 
 func _on_path_loop_restart() -> void:
+	var world = get_parent().get_parent().get_parent()
+	world.toggle_camera_movement()
 	_despawn_enemy()
 
 

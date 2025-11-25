@@ -1,12 +1,27 @@
 extends Node2D
 
-@onready var player := $player as CharacterBody2D
 @onready var camera := $camera as Camera2D
+@onready var player: CharacterBody2D = $player
+@onready var right_wall: StaticBody2D = $right_wall
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	player.follow_camera(camera)
+@export var camera_speed := 50.0
+@export var push_strength := 100.0 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+var camera_active := true
+
+func _process(delta: float) -> void:
+	if camera_active:
+		camera.global_position.x += camera_speed * delta
+
+	var cam_center = camera.get_screen_center_position()
+
+	var left_edge = cam_center.x - 240
+	var right_edge = cam_center.x 
+	if player.global_position.x < left_edge:
+		player.take_damage_from_camera_movement()
+		
+	right_wall.global_position.x = right_edge
+	
+func toggle_camera_movement():
+	camera_active = true if !camera_active else false
+	

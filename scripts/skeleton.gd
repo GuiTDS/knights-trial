@@ -9,6 +9,7 @@ const ATTACK_COOLDOWN = 3.0
 @onready var wall_detector := $wall_detector as RayCast2D
 @onready var anim: AnimatedSprite2D = $anim
 @onready var attack_area = $anim/hitbox/collision as CollisionShape2D
+@onready var collision: CollisionShape2D = $collision
 
 var direction := -1
 var current_state := State.PATROL
@@ -20,7 +21,7 @@ func _ready() -> void:
 	if not anim.animation_finished.is_connected(_on_anim_animation_finished):
 		anim.animation_finished.connect(_on_anim_animation_finished)
 
-func _physics_process(delta: float) -> void:	
+func _physics_process(_delta: float) -> void:	
 	if is_dead:
 		return
 		
@@ -84,7 +85,7 @@ func _on_player_detection_area_body_entered(body: Node2D) -> void:
 	target = body
 	current_state = State.CHASE
 	
-func _on_player_detection_area_body_exited(body: Node2D) -> void:
+func _on_player_detection_area_body_exited(_body: Node2D) -> void:
 	target = null
 	if current_state != State.ATTACK:
 		current_state = State.PATROL
@@ -106,6 +107,7 @@ func _start_attack_cooldown() -> void:
 	can_attack = true
 
 func _on_hurtbox_area_entered(_area: Area2D) -> void:
+	collision.set_deferred("disabled", true)
 	is_dead = true
 	anim.play("die")
 	velocity = Vector2.ZERO

@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://comj5cgaxsvej"]
+
+[ext_resource type="Script" uid="uid://b34mbar0dbxjd" path="res://scripts/title_screen.gd" id="1_s4lrb"]
+[ext_resource type="Texture2D" uid="uid://cpg37awph8j3x" path="res://assets/Effects/Mini FX, Items & UI/Mini FX, Items & UI/Mini UI/game_logo.png" id="1_sa3yf"]
+[ext_resource type="Theme" uid="uid://dukvbptwmxual" path="res://themes/pause_menu_style.tres" id="2_s4lrb"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s4lrb")
+
+[node name="bg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_sa3yf")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.5
+offset_top = -141.0
+offset_right = 48.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="start_btn" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_s4lrb")
+text = "START"
+
+[node name="credits_btn" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_s4lrb")
+text = "CREDITS"
+
+[node name="quit_btn" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_s4lrb")
+text = "QUIT GAME"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/start_btn" to="." method="_on_start_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/credits_btn" to="." method="_on_credits_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/quit_btn" to="." method="_on_quit_btn_pressed"]

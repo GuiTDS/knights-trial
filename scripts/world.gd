@@ -12,7 +12,14 @@ var camera_active := true
 func _process(delta: float) -> void:
 	if camera_active:
 		camera.global_position.x += camera_speed * delta
-
+	
+	# Camera follows player Y position
+	camera.global_position.y = lerp(
+		camera.global_position.y,
+		player.global_position.y,
+		5.0 * delta
+	)
+	
 	var cam_center = camera.get_screen_center_position()
 
 	var left_edge = cam_center.x - 240

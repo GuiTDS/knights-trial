@@ -15,9 +15,9 @@ func _process(_delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	anim.play("collect")
 	if body.health == body.max_health:
 		return
-	anim.play("collect")
 	body.health += 1
 	body.emit_signal("stats_changed", body)
 

@@ -310,7 +310,7 @@ shape = SubResource("RectangleShape2D_6rtjr")
 
 [node name="wall_detector" type="RayCast2D" parent="."]
 target_position = Vector2(-14, 0)
-collision_mask = 6
+collision_mask = 518
 
 [node name="anim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ke1yp")

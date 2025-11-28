@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://b8prrkn4mmyya"]
+[gd_scene load_steps=30 format=4 uid="uid://b8prrkn4mmyya"]
 
 [ext_resource type="Script" uid="uid://cmacs2dom50hq" path="res://scripts/world.gd" id="1_xo05s"]
 [ext_resource type="Script" uid="uid://celr548tq0b2n" path="res://scripts/hud/hp.gd" id="2_dss4m"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://07abiai4o3w5" path="res://actors/skeleton_mace.tscn" id="13_ts3gi"]
 [ext_resource type="PackedScene" uid="uid://dda0bchvh5hd5" path="res://world/prefabs/limiting_wall.tscn" id="14_0nbtd"]
 [ext_resource type="PackedScene" uid="uid://b0sejhkjri4dd" path="res://actors/player.tscn" id="15_37qwj"]
+[ext_resource type="PackedScene" uid="uid://8k75qm65p33b" path="res://world/prefabs/kill_zone.tscn" id="16_dss4m"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_oxfhy"]
 tile_data = PackedInt32Array(0, 589824, 3, 1, 655360, 3, 2, 720896, 3, 3, 786432, 3, 4, 851968, 3)
@@ -267,6 +268,12 @@ texture = ExtResource("9_kpybi")
 [sub_resource type="TileSet" id="TileSet_687qm"]
 sources/0 = SubResource("TileSetAtlasSource_legw5")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7t5mc"]
+size = Vector2(416, 8.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dss4m"]
+size = Vector2(479, 12)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oxfhy"]
 size = Vector2(10.5, 320)
 
@@ -374,6 +381,22 @@ position = Vector2(1291, 41)
 
 [node name="LimitingWall2" parent="limiters" instance=ExtResource("14_0nbtd")]
 position = Vector2(1368, 42)
+
+[node name="killzones" type="Node2D" parent="."]
+
+[node name="kill_zone" parent="killzones" instance=ExtResource("16_dss4m")]
+position = Vector2(1482, 362)
+
+[node name="collision" type="CollisionShape2D" parent="killzones/kill_zone"]
+shape = SubResource("RectangleShape2D_7t5mc")
+debug_color = Color(0.975656, 0.0519199, 0.377158, 0.42)
+
+[node name="kill_zone2" parent="killzones" instance=ExtResource("16_dss4m")]
+position = Vector2(2489, 371)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzones/kill_zone2"]
+shape = SubResource("RectangleShape2D_dss4m")
+debug_color = Color(0.976471, 0.0509804, 0.376471, 0.419608)
 
 [node name="camera" type="Camera2D" parent="."]
 texture_filter = 1

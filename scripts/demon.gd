@@ -3,7 +3,7 @@ extends CharacterBody2D
 const FIREBALL = preload("res://world/prefabs/fireball.tscn")
 
 @export var speed := 100.0
-@export var respawn_time := 120.0
+@export var respawn_time := 60.0
 
 # spawn offsets
 const SPAWN_OFFSET_X = -300.0
